@@ -1,31 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Sandbox.Common;
-using Sandbox.Common.ObjectBuilders;
-using Sandbox.Game;
-using Sandbox.Game.GameSystems.Conveyors;
-using Sandbox.Game.Entities;
-using Sandbox.Game.EntityComponents;
-using Sandbox.Definitions;
+﻿using Sandbox.Game.Entities;
 using Sandbox.ModAPI;
-using Sandbox.ModAPI.Interfaces;
-
-using VRage;
+using Sandbox.ModAPI.Interfaces.Terminal;
+using System;
+using System.Collections.Generic;
+using System.Text;
 using VRage.Game;
 using VRage.Game.Components;
 using VRage.Game.ModAPI;
-using VRage.Game.ObjectBuilders.Definitions;
 using VRage.ModAPI;
 using VRage.ObjectBuilders;
 using VRage.Utils;
 using VRageMath;
-using VRage.Game.Entity;
-using VRage.Voxels;
-using Sandbox.ModAPI.Interfaces.Terminal;
 
 namespace SE_Mod_ADP_Reworked
 {
@@ -34,30 +19,37 @@ namespace SE_Mod_ADP_Reworked
     {
         // Builder is nessassary for GetObjectBuilder method as far as I know.
         private MyObjectBuilder_EntityBase builder;
+
         private Sandbox.ModAPI.IMyAssembler m_generator;
         private IMyCubeBlock m_parent;
 
-        bool m_bInit = false;
+        private bool m_bInit = false;
 
         #region Terminal Controls
-        static bool _ControlsInited = false;
 
-        static IMyTerminalControlCheckbox m_enableStone;
+        private static bool _ControlsInited = false;
+
+        private static IMyTerminalControlCheckbox m_enableStone;
+
         #region Control Values
+
         public bool StoneEnabled
         {
             get { return m_stoneEnabled; }
             set { m_stoneEnabled = value; }
         }
-        bool m_stoneEnabled = false;
-        #endregion
+
+        private bool m_stoneEnabled = false;
+
+        #endregion Control Values
+
         private void CreateTerminalControls()
         {
             if (_ControlsInited)
                 return;
 
             _ControlsInited = true;
-            Func<IMyTerminalBlock, bool> enabledCheck = delegate (IMyTerminalBlock b) { return b.BlockDefinition.SubtypeId == "DrillPlatform"; };
+            bool enabledCheck(IMyTerminalBlock b) { return b.BlockDefinition.SubtypeId == "DrillPlatform"; }
 
             m_enableStone = MyAPIGateway.TerminalControls.CreateControl<IMyTerminalControlCheckbox, IMyAssembler>("EnableStone");
             // Separator
@@ -97,6 +89,7 @@ namespace SE_Mod_ADP_Reworked
                 }
             }
         }
+
         public void LoadTerminalValues()
         {
             // New way
@@ -107,9 +100,11 @@ namespace SE_Mod_ADP_Reworked
                 m_stoneEnabled = settings.StoneEnabled;
             }
         }
-        #endregion
+
+        #endregion Terminal Controls
 
         #region IsInVoxel definition
+
         private bool IsInVoxel(Sandbox.ModAPI.IMyTerminalBlock block)
         {
             BoundingBoxD blockWorldAABB = block.PositionComp.WorldAABB;
@@ -128,16 +123,20 @@ namespace SE_Mod_ADP_Reworked
 
             return false;
         }
-        #endregion
+
+        #endregion IsInVoxel definition
+
         #region colors
+
         private Color m_primaryColor = Color.OrangeRed;
         private Color m_secondaryColor = Color.LemonChiffon;
+
         public Color PrimaryBeamColor
         {
             get { return m_primaryColor; }
             set
             {
-                m_primaryColor = value;               
+                m_primaryColor = value;
             }
         }
 
@@ -146,11 +145,13 @@ namespace SE_Mod_ADP_Reworked
             get { return m_secondaryColor; }
             set
             {
-                m_secondaryColor = value;        
+                m_secondaryColor = value;
             }
         }
-        #endregion
-        Sandbox.ModAPI.IMyTerminalBlock terminalBlock;
+
+        #endregion colors
+
+        private Sandbox.ModAPI.IMyTerminalBlock terminalBlock;
 
         public override void Init(MyObjectBuilder_EntityBase objectBuilder)
         {
@@ -168,7 +169,9 @@ namespace SE_Mod_ADP_Reworked
                 CreateTerminalControls();
             }
         }
+
         #region UpdateBeforeSimulation
+
         public override void UpdateBeforeSimulation100()
         {
             base.UpdateBeforeSimulation100();
@@ -185,7 +188,9 @@ namespace SE_Mod_ADP_Reworked
                 }
             }
         }
-        #endregion
+
+        #endregion UpdateBeforeSimulation
+
         public override MyObjectBuilder_EntityBase GetObjectBuilder(bool copy = false)
         {
             return builder;
@@ -202,13 +207,13 @@ namespace SE_Mod_ADP_Reworked
                 if (IsInVoxel(m_generator as Sandbox.ModAPI.IMyTerminalBlock))
                 {
                     if (MyAPIGateway.Session?.Player == null)
-					{
-						return;
-					}
-					else
-					{
-						DrawBeams();
-					}				
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        DrawBeams();
+                    }
                 }
             }
         }
@@ -240,7 +245,7 @@ namespace SE_Mod_ADP_Reworked
             if (m_counter % 2 == 0)
             {
                 VRage.Game.MySimpleObjectDraw.DrawLine(m_generator.WorldAABB.Center - (m_generator.WorldMatrix.Down * 2.5), m_generator.WorldAABB.Center + (m_generator.WorldMatrix.Down * 2.5 * 4), VRage.Utils.MyStringId.GetOrCompute("WeaponLaser"), ref maincolor, 1.12f);
-            }        
+            }
         }
     }
 }

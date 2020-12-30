@@ -9,7 +9,7 @@ using VRage.Game.ModAPI;
 namespace SE_Mod_ADP_Reworked
 {
     [VRage.Game.Components.MySessionComponentDescriptor(VRage.Game.Components.MyUpdateOrder.NoUpdate)]
-    class LoggerSession : VRage.Game.Components.MySessionComponentBase
+    internal class LoggerSession : VRage.Game.Components.MySessionComponentBase
     {
         public override void Init(MyObjectBuilder_SessionComponent sessionComponent)
         {
@@ -28,13 +28,13 @@ namespace SE_Mod_ADP_Reworked
     // This should be generic, so it can be included without modification in other mods.
     public class Logger
     {
-        System.IO.TextWriter m_logger = null;
+        private System.IO.TextWriter m_logger = null;
         static private Logger m_instance = null;
-        StringBuilder m_cache = new StringBuilder(60);
-        string m_filename = "debug";            // Default filename if not specified
-        int m_indent = 0;
-        bool m_init = false;
-        bool m_loggedSession = false;
+        private StringBuilder m_cache = new StringBuilder(60);
+        private string m_filename = "debug";            // Default filename if not specified
+        private int m_indent = 0;
+        private bool m_init = false;
+        private bool m_loggedSession = false;
 
         private Logger()
         {
@@ -113,6 +113,7 @@ namespace SE_Mod_ADP_Reworked
         }
 
         #region Mulithreaded logging
+
         public void LogDebugOnGameThread(string message)
         {
             if (Debug)
@@ -123,11 +124,13 @@ namespace SE_Mod_ADP_Reworked
         {
             Sandbox.ModAPI.MyAPIGateway.Utilities.InvokeOnGameThread(delegate { Logger.Instance.LogMessage(message); });
         }
+
         public void LogExceptionOnGameThread(Exception ex)
         {
             Sandbox.ModAPI.MyAPIGateway.Utilities.InvokeOnGameThread(delegate { Logger.Instance.LogException(ex); });
         }
-        #endregion
+
+        #endregion Mulithreaded logging
 
         public void LogDebug(string message)
         {
@@ -238,8 +241,7 @@ namespace SE_Mod_ADP_Reworked
     {
         // This should only be called on the client where it will have an effect, so we can cache it for now
         // TODO: Refresh this cache on a promotion event
-        static Dictionary<ulong, bool> _cachedResult = new Dictionary<ulong, bool>();
-
+        private static Dictionary<ulong, bool> _cachedResult = new Dictionary<ulong, bool>();
 
         /// <summary>
         /// Determines if the player is an Administrator of the active game session.

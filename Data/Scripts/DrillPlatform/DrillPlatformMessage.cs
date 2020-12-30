@@ -1,41 +1,30 @@
-﻿using System;
+﻿using ProtoBuf;
+using Sandbox.ModAPI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Xml.Serialization;
-using ProtoBuf;
-
-using Sandbox.Common;
-using Sandbox.Common.ObjectBuilders;
-using Sandbox.Definitions;
-using Sandbox.Engine;
-using Sandbox.Game;
-using Sandbox.ModAPI;
-using Sandbox.ModAPI.Interfaces;
-using VRage;
-using VRage.ObjectBuilders;
 using VRage.Game;
-using VRage.ModAPI;
 using VRage.Game.Components;
 using VRage.Game.ModAPI;
-using VRageMath;
-using SpaceEngineers.Game.ModAPI;
+using VRage.ModAPI;
 
 namespace SE_Mod_ADP_Reworked
 {
     #region MP messaging
+
     public enum MessageSide
     {
         ServerSide,
         ClientSide
     }
 
-    #endregion
+    #endregion MP messaging
 
     [MySessionComponentDescriptor(MyUpdateOrder.BeforeSimulation)]
-    class NetworkSession : MySessionComponentBase
+    internal class NetworkSession : MySessionComponentBase
     {
-        bool _isInitialized = false;
+        private bool _isInitialized = false;
 
         protected override void UnloadData()
         {
@@ -77,7 +66,7 @@ namespace SE_Mod_ADP_Reworked
         public static Dictionary<ulong, List<byte>> Server_MessageCache = new Dictionary<ulong, List<byte>>();
 
         public static readonly ushort MessageId = 19844;
-        static readonly int MAX_MESSAGE_SIZE = 4096;
+        private static readonly int MAX_MESSAGE_SIZE = 4096;
 
         public static void SendMessageToServer(MessageBase message)
         {
@@ -123,7 +112,7 @@ namespace SE_Mod_ADP_Reworked
             byte[] byteData = System.Text.Encoding.UTF8.GetBytes(xml);
 
             Logger.Instance.LogDebug(string.Format("SendMessageToPlayer {0} {1} {2}, {3}b", steamId, message.Side, message.GetType().Name, byteData.Length));
-            
+
             if (byteData.Length <= MAX_MESSAGE_SIZE)
                 MyAPIGateway.Multiplayer.SendMessageTo(MessageId, byteData, steamId);
             else
@@ -194,6 +183,7 @@ namespace SE_Mod_ADP_Reworked
         }
 
         #region Message Splitting
+
         /// <summary>
         /// Calculates how many bytes can be stored in the given message.
         /// </summary>
@@ -280,6 +270,7 @@ namespace SE_Mod_ADP_Reworked
                             else
                                 throw new Exception("Failed to send message parts to client.");
                             break;
+
                         case MessageSide.ServerSide:
                             if (MyAPIGateway.Multiplayer.SendMessageToServer(MessageId, bytes))
                                 byteList.RemoveRange(0, count);
@@ -287,7 +278,6 @@ namespace SE_Mod_ADP_Reworked
                                 throw new Exception("Failed to send message parts to server.");
                             break;
                     }
-
                 }
                 catch (Exception ex)
                 {
@@ -296,7 +286,8 @@ namespace SE_Mod_ADP_Reworked
                 }
             }
         }
-        #endregion
+
+        #endregion Message Splitting
 
         public static void HandleMessage(byte[] rawData)
         {
@@ -317,7 +308,6 @@ namespace SE_Mod_ADP_Reworked
                 // Don't warn the user of an exception, this can happen if two mods with the same message id receive an unknown message
                 Logger.Instance.LogMessage(string.Format("Processing message exception. Exception: {0}", e.ToString()));
             }
-
         }
     }
 
@@ -340,8 +330,10 @@ namespace SE_Mod_ADP_Reworked
     {
         [ProtoMember(1)]
         public string Message;
+
         [ProtoMember(2)]
         public int Timeout = 2000;
+
         [ProtoMember(3)]
         public bool Error = false;
 
@@ -372,7 +364,6 @@ namespace SE_Mod_ADP_Reworked
 
         public override void ProcessClient()
         {
-            
         }
 
         public override void ProcessServer()
@@ -452,8 +443,8 @@ namespace SE_Mod_ADP_Reworked
         }
     }
 
-
     #region Message Splitting
+
     [ProtoContract]
     public class MessageIncomingMessageParts : MessageBase
     {
@@ -487,9 +478,9 @@ namespace SE_Mod_ADP_Reworked
                 MessageUtils.Server_MessageCache[SenderSteamId].Clear();
             }
         }
-
     }
-    #endregion
+
+    #endregion Message Splitting
 
     /// <summary>
     /// This is a base class for all messages
@@ -527,6 +518,7 @@ namespace SE_Mod_ADP_Reworked
                 case MessageSide.ClientSide:
                     InvokeClientProcessing();
                     break;
+
                 case MessageSide.ServerSide:
                     InvokeServerProcessing();
                     break;
@@ -564,7 +556,9 @@ namespace SE_Mod_ADP_Reworked
         }
 
         public abstract void ProcessClient();
+
         public abstract void ProcessServer();
     }
 }
+
 // vim: tabstop=4 expandtab shiftwidth=4 nobackup

@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Sandbox.ModAPI;
+﻿using Sandbox.ModAPI;
+using System.Collections.Generic;
 using VRage.Game.Components;
 using VRage.ModAPI;
 using VRage.ObjectBuilders;
@@ -43,7 +43,6 @@ namespace DisableModdedBlocks
                     myClosedBlocks.Add(moddedBlock);
                     continue;
                 }
-                    
 
                 var dist = (moddedBlock.GetPosition() - Entity.GetPosition()).LengthSquared();
                 if (dist < DisableDistance * DisableDistance)

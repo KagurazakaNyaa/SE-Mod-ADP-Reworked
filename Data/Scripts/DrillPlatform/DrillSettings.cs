@@ -1,13 +1,8 @@
 ﻿using ProtoBuf;
 using Sandbox.ModAPI;
-using SpaceEngineers.Game.ModAPI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
-using VRageMath;
 
 namespace SE_Mod_ADP_Reworked
 {
@@ -16,8 +11,9 @@ namespace SE_Mod_ADP_Reworked
     /// </summary>
     public class DrillSettings
     {
-        static bool _initialized = false;
-        static DrillSettings _instance = new DrillSettings();
+        private static bool _initialized = false;
+        private static DrillSettings _instance = new DrillSettings();
+
         public static DrillSettings Instance
         {
             get
@@ -44,7 +40,8 @@ namespace SE_Mod_ADP_Reworked
                 // ignore
             }
         }
-        List<DrillPlatformSetting> m_platformSettings = new List<DrillPlatformSetting>();
+
+        private List<DrillPlatformSetting> m_platformSettings = new List<DrillPlatformSetting>();
 
         // This is to save data to world file
         public void SaveAllTerminalValues()
@@ -55,7 +52,7 @@ namespace SE_Mod_ADP_Reworked
                 var strdata = MyAPIGateway.Utilities.SerializeToXML<List<DrillPlatformSetting>>(m_platformSettings);
                 MyAPIGateway.Utilities.SetVariable<string>("DrillPlatform", strdata);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 // If an old save game is loaded, it seems it might try to resave to upgrade.
                 // If this happens, the ModAPI may not be initialized
@@ -82,6 +79,7 @@ namespace SE_Mod_ADP_Reworked
         }
 
         #region Turret drill
+
         public DrillPlatformSetting RetrieveTerminalValues(IMyAssembler drill)
         {
             Logger.Instance.LogDebug("RetrieveTerminalValues");
@@ -116,12 +114,14 @@ namespace SE_Mod_ADP_Reworked
                 DrillSettings.Instance.m_platformSettings.Remove(settings);
             }
         }
-        #endregion
+
+        #endregion Turret drill
     }
 
     public static class DrillSettingExtensions
     {
         #region Platform
+
         public static DrillPlatformSetting RetrieveTerminalValues(this IMyAssembler drill)
         {
             return DrillSettings.Instance.RetrieveTerminalValues(drill);
@@ -136,7 +136,8 @@ namespace SE_Mod_ADP_Reworked
         {
             DrillSettings.Instance.DeleteTerminalValues(drill);
         }
-        #endregion
+
+        #endregion Platform
     }
 
     [ProtoContract]
