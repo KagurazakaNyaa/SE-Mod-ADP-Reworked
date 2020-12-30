@@ -6,7 +6,7 @@
         <TypeId>BlueprintDefinition</TypeId>
         <SubtypeId>ToIron_150</SubtypeId>
       </Id>
-	  <DisplayName>Iron</DisplayName>
+	  <DisplayName>铁锭</DisplayName>
       <Icon>Textures\GUI\Icons\ingot\iron_ingot.dds</Icon>
        <Prerequisites>
 		<Item Amount="150" TypeId="Ingot" SubtypeId="Stone" />
@@ -22,7 +22,7 @@
         <TypeId>BlueprintDefinition</TypeId>
         <SubtypeId>ToCobalt_350</SubtypeId>
       </Id>
-	  <DisplayName>Cobalt</DisplayName>
+	  <DisplayName>钴锭</DisplayName>
       <Icon>Textures\GUI\Icons\ingot\cobalt_ingot.dds</Icon>
        <Prerequisites>
 		<Item Amount="350" TypeId="Ingot" SubtypeId="Stone" />
@@ -38,7 +38,7 @@
         <TypeId>BlueprintDefinition</TypeId>
         <SubtypeId>ToNickel_350</SubtypeId>
       </Id>
-	  <DisplayName>Nickel</DisplayName>
+	  <DisplayName>镍锭</DisplayName>
       <Icon>Textures\GUI\Icons\ingot\nickel_ingot.dds</Icon>
        <Prerequisites>
 		<Item Amount="350" TypeId="Ingot" SubtypeId="Stone" />
@@ -54,7 +54,7 @@
         <TypeId>BlueprintDefinition</TypeId>
         <SubtypeId>ToSilicon_620</SubtypeId>
       </Id>
-	  <DisplayName>Silicon</DisplayName>
+	  <DisplayName>硅片</DisplayName>
       <Icon>Textures\GUI\Icons\ingot\silicon_ingot.dds</Icon>
        <Prerequisites>
 		<Item Amount="620" TypeId="Ingot" SubtypeId="Stone" />
@@ -70,7 +70,7 @@
         <TypeId>BlueprintDefinition</TypeId>
         <SubtypeId>ToMagnesium_2700</SubtypeId>
       </Id>
-	  <DisplayName>Magnesium</DisplayName>
+	  <DisplayName>镁粉</DisplayName>
       <Icon>Textures\GUI\Icons\ingot\magnesium_ingot.dds</Icon>
        <Prerequisites>
 		<Item Amount="2700" TypeId="Ingot" SubtypeId="Stone" />
@@ -86,7 +86,7 @@
         <TypeId>BlueprintDefinition</TypeId>
         <SubtypeId>ToUranium_20000</SubtypeId>
       </Id>
-	  <DisplayName>Uranium</DisplayName>
+	  <DisplayName>铀棒</DisplayName>
       <Icon>Textures\GUI\Icons\ingot\uranium_ingot.dds</Icon>
        <Prerequisites>
 		<Item Amount="20000" TypeId="Ingot" SubtypeId="Stone" />
@@ -102,7 +102,7 @@
         <TypeId>BlueprintDefinition</TypeId>
         <SubtypeId>ToSilver_28000</SubtypeId>
       </Id>
-	  <DisplayName>Silver</DisplayName>
+	  <DisplayName>银锭</DisplayName>
       <Icon>Textures\GUI\Icons\ingot\silver_ingot.dds</Icon>
        <Prerequisites>
 		<Item Amount="28000" TypeId="Ingot" SubtypeId="Stone" />
@@ -118,7 +118,7 @@
         <TypeId>BlueprintDefinition</TypeId>
         <SubtypeId>ToGold_52000</SubtypeId>
       </Id>
-	  <DisplayName>Gold</DisplayName>
+	  <DisplayName>金锭</DisplayName>
       <Icon>Textures\GUI\Icons\ingot\gold_ingot.dds</Icon>
        <Prerequisites>
 		<Item Amount="52000" TypeId="Ingot" SubtypeId="Stone" />
@@ -134,7 +134,7 @@
         <TypeId>BlueprintDefinition</TypeId>
         <SubtypeId>ToPlatinum_75000</SubtypeId>
       </Id>
-	  <DisplayName>Platinum</DisplayName>
+	  <DisplayName>铂锭</DisplayName>
       <Icon>Textures\GUI\Icons\ingot\platinum_ingot.dds</Icon>
        <Prerequisites>
 		<Item Amount="75000" TypeId="Ingot" SubtypeId="Stone" />
@@ -150,7 +150,7 @@
         <TypeId>BlueprintDefinition</TypeId>
         <SubtypeId>ToIce_420</SubtypeId>
       </Id>
-	  <DisplayName>Ice</DisplayName>
+	  <DisplayName>冰</DisplayName>
       <Icon>Textures\GUI\Icons\ingot\ore_H2O_ice.dds</Icon>
        <Prerequisites>
 		<Item Amount="420" TypeId="Ingot" SubtypeId="Stone" />

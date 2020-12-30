@@ -72,11 +72,6 @@
     <Content Include="Textures\Models\Cubes\metal_ng.dds" />
     <Content Include="thumb.jpg" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Data\Scripts\1\DisableAlim.cs" />
-    <Compile Include="Data\Scripts\1\OilRigAlim.cs" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />

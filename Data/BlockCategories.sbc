@@ -9,7 +9,7 @@
 			<DisplayName>DisplayName_Category_Production</DisplayName>
 			<Name>Production</Name>
 			<ItemIds>
-				<string>DrillPlatform</string>
+				<string>钻探平台</string>
 			</ItemIds>
 		</Category>
 </CategoryClasses>

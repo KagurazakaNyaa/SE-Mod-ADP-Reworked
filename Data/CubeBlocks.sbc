@@ -7,7 +7,7 @@
         <TypeId>Assembler</TypeId>
         <SubtypeId>DrillPlatform</SubtypeId>
       </Id>
-      <DisplayName>Drill Platform</DisplayName>
+      <DisplayName>钻探平台</DisplayName>
       <Icon>Textures\GUI\Icons\Cubes\RemoteExtractor.dds</Icon>
       <CubeSize>Large</CubeSize>
       <BlockTopology>TriangleMesh</BlockTopology>

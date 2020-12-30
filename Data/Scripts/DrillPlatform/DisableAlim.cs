@@ -1,6 +1,6 @@
-﻿using Sandbox.Common.ObjectBuilders;
+﻿using System.Collections.Generic;
+using Sandbox.Common.ObjectBuilders;
 using Sandbox.ModAPI;
-using System.Collections.Generic;
 using VRage.Game.Components;
 using VRage.ModAPI;
 using VRage.ObjectBuilders;
