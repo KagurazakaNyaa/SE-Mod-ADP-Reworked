@@ -21,7 +21,7 @@ using VRage.Game.ModAPI;
 using VRageMath;
 using SpaceEngineers.Game.ModAPI;
 
-namespace P3DResourceRig
+namespace SE_Mod_ADP_Reworked
 {
     #region MP messaging
     public enum MessageSide
@@ -316,7 +316,6 @@ namespace P3DResourceRig
             {
                 // Don't warn the user of an exception, this can happen if two mods with the same message id receive an unknown message
                 Logger.Instance.LogMessage(string.Format("Processing message exception. Exception: {0}", e.ToString()));
-                //Logger.Instance.LogException(e);
             }
 
         }
@@ -356,165 +355,6 @@ namespace P3DResourceRig
             // None
         }
     }
-
-    //[ProtoContract]
-    //public class MessageGPS : MessageBase
-    //{
-    //    [ProtoMember(1)]
-    //    public long FTLId;
-    //    [ProtoMember(2)]
-    //    public VRageMath.Vector3D Destination = VRageMath.Vector3D.Zero;
-    //    [ProtoMember(2)]
-    //    public string Name;
-
-    //    public override void ProcessClient()
-    //    {
-    //        // None
-    //    }
-
-    //    public override void ProcessServer()
-    //    {
-    //        var ftl = MyAPIGateway.Entities.GetEntityById(FTLId) as IMyFunctionalBlock;
-
-    //        if (ftl == null)        // Something happened
-    //            return;
-
-    //        var ftld = ftl.GetFTLData();
-    //        ftld.explicitDest = Destination;
-    //        ftld.flags |= JumpFlags.AbsolutePosition | JumpFlags.ExplicitCoords | JumpFlags.GPSWaypoint;
-
-    //        // Save a local gps entry, in case a friendly player edits it later
-    //        if (ftl.GetPlayerRelationToOwner() != MyRelationsBetweenPlayerAndBlock.Enemies)
-    //        {
-    //            Logger.Instance.LogMessage(string.Format("Received GPS '{0}': {1:F0}, {2:F0}, {3:F0}", Name, Destination.X, Destination.Y, Destination.Z));
-
-    //            var gps = MyAPIGateway.Session.GPS.Create(Name, null, Destination, false, false);
-    //            //gps.DiscardAt = MyAPIGateway.Session.ElapsedPlayTime.Add(TimeSpan.FromSeconds(1));
-    //            MyAPIGateway.Session.GPS.AddLocalGps(gps);
-    //        }
-    //        else
-    //        {
-    //            Logger.Instance.LogMessage(string.Format("Received GPS '{0}'", Name));
-    //        }
-    //    }
-    //}
-
-    //[ProtoContract]
-    //public class MessageValueChange : MessageBase
-    //{
-    //    [ProtoMember(1)]
-    //    public ChangeType ValueType;
-    //    [ProtoMember(2)]
-    //    public ModifierType Type;
-    //    [ProtoMember(3)]
-    //    public float Modifier;
-    //    [ProtoMember(4)]
-    //    public bool Reset;
-
-    //    public override void ProcessClient()
-    //    {
-    //        // None
-    //    }
-
-    //    public override void ProcessServer()
-    //    {
-    //        string message = string.Format("invalid {1} modifier: {0}", Type, ValueType.ToString().ToLowerInvariant());
-    //        List<MyTuple<ModifierType, float>> list = null;
-
-    //        if (ValueType == ChangeType.Base)
-    //            list = FTLAdmin.Configuration.BaseValues;
-    //        else if (ValueType == ChangeType.Upgrade)
-    //            list = FTLAdmin.Configuration.Upgrades;
-
-    //        if (Reset)
-    //        {
-    //            MyTuple<ModifierType, float>? val = null;
-    //            foreach (var entry in list)
-    //            {
-    //                if (entry.Item1 == Type)
-    //                {
-    //                    val = entry;
-    //                    break;
-    //                }
-    //            }
-    //            if (val == null)
-    //            {
-    //                message = string.Format("{1} modifier {0} already default", Type, ValueType.ToString().ToLowerInvariant());
-    //            }
-    //            else
-    //            {
-    //                list.Remove(val.Value);
-    //                message = string.Format("{1} modifier {0} reset to default", Type, ValueType.ToString().ToLowerInvariant());
-    //            }
-    //        }
-    //        else
-    //        {
-    //            bool found = false;
-    //            for (int x = 0; x < list.Count; x++)
-    //            {
-    //                if (list[x].Item1 == Type)
-    //                {
-    //                    var item = list[x];
-    //                    item.Item2 = Modifier;
-    //                    list[x] = item;
-    //                    found = true;
-    //                }
-    //            }
-
-    //            if (!found)
-    //                list.Add(new MyTuple<ModifierType, float>(Type, Modifier));
-
-    //            message = string.Format("{2} modifier {0} set to {1}", Type, Modifier, ValueType.ToString().ToLowerInvariant());
-    //        }
-
-    //        // Force reload all FTL data
-    //        Globals.Reload();
-    //        FTLData.ReloadAll();
-    //        FTLInhibitor.ReloadAll();
-
-    //        MessageUtils.SendMessageToPlayer(SenderSteamId, new MessageChat() { Sender = Globals.ModName, MessageText = message });
-    //    }
-    //}
-
-    //[ProtoContract]
-    //public class MessageSave : MessageBase
-    //{
-    //    public override void ProcessClient()
-    //    {
-    //        // never processed here
-    //    }
-
-    //    public override void ProcessServer()
-    //    {
-    //        FTLAdmin.SaveConfig();
-    //        MessageUtils.SendMessageToPlayer(SenderSteamId, new MessageChat() { Sender = Globals.ModName, MessageText = "Config saved" });
-    //    }
-    //}
-
-    //[ProtoContract]
-    //public class MessageDebug : MessageBase
-    //{
-    //    [ProtoMember(1)]
-    //    public bool DebugMode;
-
-    //    public override void ProcessClient()
-    //    {
-    //        EnableDebug();
-    //    }
-
-    //    public override void ProcessServer()
-    //    {
-    //        EnableDebug();
-    //    }
-
-    //    private void EnableDebug()
-    //    {
-    //        FTLAdmin.Configuration.Debug = DebugMode;
-    //        Logger.Instance.Debug = DebugMode;
-    //        MessageUtils.SendMessageToPlayer(SenderSteamId, new MessageChat() { Sender = Globals.ModName, MessageText = "Debug mode " + FTLAdmin.Configuration.Debug.ToString() });
-    //    }
-    //}
-
 
     [ProtoContract]
     public class MessageScanState : MessageBase
@@ -679,24 +519,6 @@ namespace P3DResourceRig
         /// </summary>
         [ProtoMember(2)]
         public MessageSide Side = MessageSide.ClientSide;
-
-        /*
-        [ProtoAfterDeserialization]
-        void InvokeProcessing() // is not invoked after deserialization from xml
-        {
-            Logger.Debug("START - Processing");
-            switch (Side)
-            {
-                case MessageSide.ClientSide:
-                    ProcessClient();
-                    break;
-                case MessageSide.ServerSide:
-                    ProcessServer();
-                    break;
-            }
-            Logger.Debug("END - Processing");
-        }
-        */
 
         public void InvokeProcessing()
         {

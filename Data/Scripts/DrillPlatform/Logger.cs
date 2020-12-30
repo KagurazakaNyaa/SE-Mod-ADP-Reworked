@@ -6,7 +6,7 @@ using VRage;
 using VRage.Game;
 using VRage.Game.ModAPI;
 
-namespace P3DResourceRig
+namespace SE_Mod_ADP_Reworked
 {
     [VRage.Game.Components.MySessionComponentDescriptor(VRage.Game.Components.MyUpdateOrder.NoUpdate)]
     class LoggerSession : VRage.Game.Components.MySessionComponentBase
@@ -207,7 +207,6 @@ namespace P3DResourceRig
                     catch { return; }
                 }
 
-                //Sandbox.ModAPI.MyAPIGateway.Utilities.ShowNotification("writing: " + message);
                 m_logger.Write(m_cache);
                 m_logger.Flush();
                 m_cache.Clear();

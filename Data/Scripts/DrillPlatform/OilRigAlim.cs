@@ -27,7 +27,7 @@ using VRage.Game.Entity;
 using VRage.Voxels;
 using Sandbox.ModAPI.Interfaces.Terminal;
 
-namespace P3DResourceRig
+namespace SE_Mod_ADP_Reworked
 {
     [MyEntityComponentDescriptor(typeof(MyObjectBuilder_Assembler), true, "DrillPlatform")]
     public class Rig : MyGameLogicComponent

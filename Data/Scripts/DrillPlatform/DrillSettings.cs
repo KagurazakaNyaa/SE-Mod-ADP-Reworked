@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using VRageMath;
 
-namespace P3DResourceRig
+namespace SE_Mod_ADP_Reworked
 {
     /// <summary>
     /// Singleton for saving and loading all block terminal settings.
@@ -89,9 +89,6 @@ namespace P3DResourceRig
             if (settings != null)
             {
                 Logger.Instance.LogDebug("Found settings for block: " + drill.CustomName);
-                //drill.GameLogic.GetAs<LaserDrillTurret>().PriorityEnabled = settings.PriorityEnabled;
-                //drill.GameLogic.GetAs<LaserDrillTurret>().PriorityList.Clear();
-                //drill.GameLogic.GetAs<LaserDrillTurret>().PriorityList.AddRange(settings.OrePriority);
             }
             return settings;
         }
@@ -145,10 +142,10 @@ namespace P3DResourceRig
     [ProtoContract]
     public class DrillPlatformSetting
     {
-        [ProtoMember]
+        [ProtoMember(1)]
         public long EntityId = 0;
 
-        [ProtoMember]
+        [ProtoMember(2)]
         public bool StoneEnabled = false;
     }
 
